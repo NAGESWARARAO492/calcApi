@@ -361,6 +361,18 @@ type java_security_PublicKey = {|  |} {"typeAlias": "PublicKey",
 
 ]]></types:shape>
     </types:type>
+    <types:type name="cal" format="json">
+      <types:shape format="weave" example="examples/cal.json"><![CDATA[%dw 2.0
+
+type cal = {|
+  add: Number {"typeId": "int"}, 
+  sub: Number {"typeId": "int"}, 
+  mul: Number {"typeId": "int"}, 
+  div: Number {"typeId": "int"}
+|} {"example": "{\\\"add\\\":10,\\\"sub\\\":332,\\\"mul\\\":222,\\\"div\\\":424}"}
+
+]]></types:shape>
+    </types:type>
   </types:catalog>
   <types:enrichment select="#f7c9c326-9538-467b-b1a5-62ab01b41b42">
     <types:processor-declaration>
@@ -426,4 +438,5 @@ type java_security_PublicKey = {|  |} {"typeAlias": "PublicKey",
       </types:output-event>
     </types:processor-declaration>
   </types:enrichment>
+  <types:enrichment select="#cabbff8d-54d6-42ec-86f8-2cea9007ade8"/>
 </types:mule>
