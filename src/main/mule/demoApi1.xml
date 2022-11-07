@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="demoapiFlow1" doc:id="46520024-2f4e-4ef0-bc98-8f16436c3339" >
+		<http:listener doc:name="Listener" doc:id="65e04e1a-fbdc-4593-a8a7-457cf7abec6d" config-ref="HTTP_Listener_config" path="/demoClass1"/>
+		<logger level="INFO" doc:name="Logger" doc:id="c073199b-cc5d-4725-b69d-51dfd7d39148" message='#["demo class"]'/>
+		<flow-ref doc:name="Flow Reference" doc:id="d2026698-7e68-42ec-aa15-5235b4fc4a80" name="DemoSubFlowApi1"/>
+		<flow-ref doc:name="Flow Reference" doc:id="9bd6b44a-faff-4bb9-905a-2fbdd66af448" name="DemoPrivateFlowApi1" />
+		<flow-ref doc:name="Flow Reference" doc:id="dfc41fa6-d80d-408c-be31-3b62abaf628e" name="demoapiSub_Flow2_1"/>
+		<logger level="INFO" doc:name="Logger" doc:id="05e35188-836d-4baa-a62d-3e8510fa6702" message='#["back to main flow"]'/>
+		<ee:transform doc:name="Transform Message" doc:id="cfa02382-935d-4cc5-93cb-958c9e5e4476" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+attributes.mediaType]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	
+</flow>
+	<sub-flow name="DemoSubFlowApi1" doc:id="0e64f4d1-0047-429c-b62e-e1ac8bf4eeb1" >
+		<logger level="INFO" doc:name="Logger" doc:id="bea758c3-115d-4452-8297-f8c2eed4e2fd" message='#["subflow1"]'/>
+	</sub-flow>
+	<flow name="DemoPrivateFlowApi1" doc:id="c64f2d71-b7ea-48db-ac57-87b9828abc8e" >
+		<logger level="INFO" doc:name="Logger" doc:id="7a266741-a68e-4037-8cf0-f60dfe9e1569" message='#["PrivateFlow1"]'/>
+	
+</flow>
+	<sub-flow name="demoapiSub_Flow2_1" doc:id="8547c7df-56d4-44f4-bf2e-af338785dca9" >
+		<logger level="INFO" doc:name="Logger" doc:id="51b0297b-53de-4078-8316-4c6989b94ae9" message='#["subFlow2"]'/>
+	</sub-flow>
+</mule>

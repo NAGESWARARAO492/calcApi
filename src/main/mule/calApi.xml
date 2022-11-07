@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="calApiFlow" doc:id="81947e9b-3777-452b-bd98-a27e06661c95" >
+		<http:listener doc:name="Listener" doc:id="891cffdf-2e44-4274-8e42-8a95c0d12fda" config-ref="HTTP_Listener_config" path="/calApi"/>
+		<ee:transform doc:name="Transform Message" doc:id="007d4341-e8d9-44a2-8fd4-daaf9828e914" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"fName":attributes.queryParams.fname,
+	"lName": attributes.queryParams.lname
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<ee:transform doc:name="Transform Message" doc:id="cabbff8d-54d6-42ec-86f8-2cea9007ade8" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"add":payload.fName + payload.lName,
+	"sub":payload.fName - payload.lName,
+	"mul":payload.fName * payload.lName,
+	"div": payload.fName/payload.lName
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="4b8b5e6b-61a0-427b-847c-1b150ebf69b4" message="#[payload]"/>
+	</flow>
+</mule>
