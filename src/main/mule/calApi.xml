@@ -18,6 +18,7 @@ output application/json
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="abd8371d-f394-422c-8210-d17555d04df8" message="#[payload.fName], #[payload.lName]"/>
 		<ee:transform doc:name="Transform Message" doc:id="cabbff8d-54d6-42ec-86f8-2cea9007ade8" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
@@ -31,6 +32,6 @@ output application/json
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-		<logger level="INFO" doc:name="Logger" doc:id="4b8b5e6b-61a0-427b-847c-1b150ebf69b4" message="#[payload]"/>
+		<logger level="INFO" doc:name="Logger" doc:id="4b8b5e6b-61a0-427b-847c-1b150ebf69b4" message="#[payload.add], #[payload.sub],#[payload.mul],#[payload.div]"/>
 	</flow>
 </mule>
